@@ -2,7 +2,7 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #12 (2026-11-23 18:55). Repo at /data/Setuchat-Motion. fetch+grade+audio running (scripts/logs/prep12.log), torch+matte chained (scripts/logs/matte12.log). Writing remotion/ FIRST and pushing it.
+- Current: Session #13 (2026-11-23 19:00). Repo at /data/Setuchat-Motion. inputs fetched; 00d_prep.sh running (scripts/logs/prep13.log). Writing Main.tsx + UI.tsx, then render.
 - Was: Session #9. Inputs fetched via scripts/00e_fetch.py (LFS batch API, no git-lfs). Grade+matte running (00d_prep.sh). Building remotion/.
 - NEXT ACTION: build Remotion project in remotion/ reading data/shots.json; render.
 - Media on THIS computer: inputs ✔, audio ✔, ASR/grade/matte running
@@ -62,6 +62,7 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - User supplied repo + token in chat (session #2). User asked to push fast.
 
 ## Session History
+- Session #13 (2026-11-23 19:00): new computer; fetch OK; prep chain restarted; writing Main/UI.
 - Session #12 (2026-11-23 18:55): new computer; node_modules at /vercel/sandbox/node_modules; remotion CLI /usr/local/bin/remotion. Priority: push remotion/ code early.
 - Session #11 (2026-11-23 18:35): new computer; node_modules at /vercel/sandbox/node_modules; repo at /data/Setuchat-Motion.
 - Session #10 (2026-11-23 18:30): new computer; repo must live at /data/Setuchat-Motion; node_modules at /vercel/sandbox/node_modules.
