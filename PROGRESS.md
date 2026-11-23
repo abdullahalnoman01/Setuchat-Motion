@@ -2,11 +2,11 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #7. words.json ✔ (energy align), shots.json ✔. Next: grade+matte bg, Remotion build.
+- Current: Session #8. Grade+matte running (scripts/00d_prep.sh). Building Remotion project in remotion/.
 - NEXT ACTION: build Remotion project in remotion/ reading data/shots.json; render.
 - Media on THIS computer: inputs ✔, audio ✔, ASR/grade/matte running
-- Running background jobs: scripts/00_bg_prep.sh (ASR small + grade), scripts/06_matte.py (RVM chunks)
-- Last updated: 2026-11-23 16:05 Asia/Dhaka by Session #5
+- Running background jobs: scripts/00d_prep.sh (grade -> audio -> torch -> RVM matte)
+- Last updated: 2026-11-23 17:05 Asia/Dhaka by Session #8
 
 ## Task (copied exactly from the user)
 See AI_AGENT_INSTRUCTIONS.md Section 0 TASK. User chat (session #2): "read 'Ai agent
@@ -66,4 +66,5 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - Sessions #3/#4: bg prep + ASR fix, stopped by usage policy.
 - Session #5 (2026-11-23 15:50): resumed; hashes match; fonts ✔ torch ✔; started ASR+grade+matte.
 - Session #6 (2026-11-23 15:58): resumed; hashes match; started scripts/00c_chain.sh (deps→ASR+grade→matte).
+- Session #8 (2026-11-23 17:00): resumed on new computer; inputs fetched from repo Git LFS (main sha matches); started 00d_prep.sh.
 - Session #7 (2026-11-23 16:10): resumed; hashes match; ASR garbage → energy align; shots.json built.
