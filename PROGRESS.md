@@ -2,11 +2,11 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #8. Grade+matte running (scripts/00d_prep.sh). Building Remotion project in remotion/.
+- Current: Session #9. Inputs fetched via scripts/00e_fetch.py (LFS batch API, no git-lfs). Grade+matte running (00d_prep.sh). Building remotion/.
 - NEXT ACTION: build Remotion project in remotion/ reading data/shots.json; render.
 - Media on THIS computer: inputs ✔, audio ✔, ASR/grade/matte running
 - Running background jobs: scripts/00d_prep.sh (grade -> audio -> torch -> RVM matte)
-- Last updated: 2026-11-23 17:05 Asia/Dhaka by Session #8
+- Last updated: 2026-11-23 17:20 Asia/Dhaka by Session #9
 
 ## Task (copied exactly from the user)
 See AI_AGENT_INSTRUCTIONS.md Section 0 TASK. User chat (session #2): "read 'Ai agent
@@ -52,7 +52,7 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 
 ## Regenerate media
 0. Timing/plan are committed (data/words.json, data/shots.json); rerun only if inputs change: python3 scripts/02c_energy_align.py && python3 scripts/03_build_shotplan.py
-1. Copy inputs to /data/media/input as main.mp4 reference.mp4 logo.png transcript.txt motion_brief.txt; `sha256sum` vs inputs.manifest.json.
+1. `python3 scripts/00e_fetch.py` (downloads LFS videos via API) OR copy inputs to /data/media/input as main.mp4 reference.mp4 logo.png transcript.txt motion_brief.txt; `sha256sum` vs inputs.manifest.json.
 2. `bash scripts/00b_deps.sh` (torch CPU + fonts, ~2 min)
 3. `nohup bash scripts/00_bg_prep.sh > scripts/logs/prep.log &` (audio wavs, ASR -> data/asr_words.json if missing, grade -> /data/media/graded/graded.mp4; ~10-15 min)
 4. `nohup python3 scripts/06_matte.py > scripts/logs/matte.log &` (RVM matte 540x960 -> /data/media/matte/matte.mp4, resumable chunks, ~20-30 min)
@@ -61,6 +61,7 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - User supplied repo + token in chat (session #2). User asked to push fast.
 
 ## Session History
+- Session #9 (2026-11-23 17:10): new computer; git-lfs missing → scripts/00e_fetch.py; restarted 00d_prep.sh.
 - Session #1: setup attempted, stopped by usage policy before push.
 - Session #2 (2026-11-23): NEW TASK restart, Step 0 done.
 - Sessions #3/#4: bg prep + ASR fix, stopped by usage policy.
