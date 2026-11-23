@@ -3,7 +3,10 @@
 O=/data/media/out_frames; mkdir -p $O; N=${N:-2054}; C=${C:-300}
 for ((s=0; s<N; s+=C)); do e=$((s+C-1)); [ $e -ge $N ] && e=$((N-1))
   if [ -f $O/f$(printf %04d $e).jpeg ]; then echo "skip $s-$e"; continue; fi
-  for t in 1 2 3; do (cd /data && node Setuchat-Motion/remotion/render_frames.mjs $O $s $e) >> /data/Setuchat-Motion/scripts/logs/render19.log 2>&1 && break; echo "retry $s-$e"; done
+  T=/data/media/tmp_chunk; rm -rf $T; mkdir -p $T
+  for t in 1 2 3; do (cd /data && node Setuchat-Motion/remotion/render_frames.mjs $T $s $e) >> /data/Setuchat-Motion/scripts/logs/render19.log 2>&1 && break; echo "retry $s-$e"; done
+  # renderFrames pads names to the range's end frame width -> normalise to 4 digits
+  for f in $T/f*.jpeg; do n=$(basename $f .jpeg); n=${n#f}; mv -f $f $O/f$(printf %04d $((10#$n))).jpeg; done
   echo "chunk $s-$e done"; done
 set -e
 ffmpeg -v error -y -framerate 30 -i $O/f%04d.jpeg -i /data/media/audio/voice.wav \
