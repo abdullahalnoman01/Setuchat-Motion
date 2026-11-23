@@ -2,7 +2,7 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #10 (2026-11-23 18:30). Re-fetched inputs (00e_fetch.py), grade done, matte running. Writing remotion/ (prev session's remotion code was never pushed -> rewritten).
+- Current: Session #11 (2026-11-23 18:35). Inputs fetched, prep (grade->matte) running. Writing remotion/ now (never pushed before).
 - Was: Session #9. Inputs fetched via scripts/00e_fetch.py (LFS batch API, no git-lfs). Grade+matte running (00d_prep.sh). Building remotion/.
 - NEXT ACTION: build Remotion project in remotion/ reading data/shots.json; render.
 - Media on THIS computer: inputs ✔, audio ✔, ASR/grade/matte running
@@ -62,6 +62,7 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - User supplied repo + token in chat (session #2). User asked to push fast.
 
 ## Session History
+- Session #11 (2026-11-23 18:35): new computer; node_modules at /vercel/sandbox/node_modules; repo at /data/Setuchat-Motion.
 - Session #10 (2026-11-23 18:30): new computer; repo must live at /data/Setuchat-Motion; node_modules at /vercel/sandbox/node_modules.
 - Session #9 (2026-11-23 17:10): new computer; git-lfs missing → scripts/00e_fetch.py; restarted 00d_prep.sh.
 - Session #1: setup attempted, stopped by usage policy before push.
