@@ -2,7 +2,8 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #17 (2026-11-23 19:45). STILLS WORK. Compositor (gnu needs GLIBC 2.35, musl SIGSEGVs) is AVOIDED: Main.tsx FRAMES=true reads remotion/public/media/frames/%05d.jpg via <Img>.
+- Current: Session #18 (2026-11-23 19:45) RESUMED on new computer; running fetch+prep+frames (scripts/logs/prep18.log), then full draft render.
+- Was: Session #17 (2026-11-23 19:45). STILLS WORK. Compositor (gnu needs GLIBC 2.35, musl SIGSEGVs) is AVOIDED: Main.tsx FRAMES=true reads remotion/public/media/frames/%05d.jpg via <Img>.
   Recipe: python3 scripts/00e_fetch.py; bash scripts/00f_prep_nomatte.sh (audio+grade); bash scripts/09_frames.sh; mkdir -p remotion/public/media; ln /data/media/audio/voice.wav remotion/public/media/audio.wav (HARD links/real files: bundler ignores symlinks; fonts+logo copied into public/);
   then cd /data && PROPS='{"matte":false}' node Setuchat-Motion/remotion/render.mjs video SetuChat /data/media/draft.mp4
 - Was: Session #16 (2026-11-23 19:30). New computer; repo at /data/Setuchat-Motion; symlink node_modules -> /vercel/sandbox/node_modules; fetch+prep running (scripts/logs/prep16.log). Next: test stills, render no-matte draft, then matte version.
@@ -68,6 +69,7 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - User supplied repo + token in chat (session #2). User asked to push fast.
 
 ## Session History
+- Session #18 (2026-11-23 19:45): new computer; resumed from #17 recipe (fetch, 00f prep, 09 frames, render draft).
 - Session #15 (2026-11-23 19:25): remotion/render.mjs fixes 'typescript.sys undefined' loader crash; FontCard still OK.
 - Session #14 (2026-11-23 19:15): wrote+pushed remotion/src/Main.tsx, UI.tsx, public symlinks, 08_link_media.sh. Render: cd remotion && remotion render src/index.ts SetuChat out.mp4 --props='{"matte":true}'
 - Session #13 (2026-11-23 19:00): new computer; fetch OK; prep chain restarted; writing Main/UI.
