@@ -1,0 +1,1 @@
+{"script":"scripts/05_grade.sh","note":"ffmpeg chain: eq contrast 1.2 brightness -0.1 sat 0.78 gamma 0.78; highlight roll-off curves to ~0.87; cool shadows (+blue), vignette PI/3.8. Desat -30% + heavier vignette for S18-S20 is done in Remotion."}

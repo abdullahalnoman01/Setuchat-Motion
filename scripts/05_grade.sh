@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
-# Conform main.mp4 to 30 fps + dark cinematic grade (brief 3.6). No crop needed (DECISIONS 1).
-# usage: ./scripts/05_grade.sh [still_time_s]   (with arg: writes a preview still only)
+# Step 4.1+4.3: conform main.mp4 to 30 fps + dark cinematic grade (brief 3.6). No crop needed (data/crop.json).
+# Upscale: source is already 1080x1920 -> no AI upscale; punch-ins use lanczos in Remotion (DECISIONS #4).
+# out: /data/media/graded/graded.mp4  (~4-6 min on 2 CPU)
 set -e
-IN=/data/media/input/main.mp4; OUT=/data/media/graded/graded.mp4
-VF="fps=30,scale=1080:1920:flags=lanczos,\
-eq=brightness=-0.10:contrast=1.18:saturation=0.82:gamma=0.80,\
-curves=r='0/0 0.25/0.15 0.6/0.48 0.9/0.78 1/0.86':g='0/0 0.25/0.16 0.6/0.49 0.9/0.79 1/0.87':b='0/0.02 0.25/0.20 0.6/0.52 0.9/0.80 1/0.88',\
-colorbalance=rs=-0.06:gs=-0.01:bs=0.08:rm=0.02:bm=0.0:rh=0.03:bh=-0.06:gh=-0.01,\
-vignette=angle=PI/4.2:mode=forward"
-if [ -n "$1" ]; then ffmpeg -loglevel error -y -ss "$1" -i "$IN" -frames:v 1 -vf "$VF" -q:v 3 /tmp/grade_$1.jpg; exit 0; fi
+G="eq=contrast=1.2:brightness=-0.1:saturation=0.78:gamma=0.78,curves=r='0/0 0.25/0.14 0.7/0.56 1/0.86':g='0/0 0.25/0.15 0.7/0.57 1/0.87':b='0/0.02 0.25/0.19 0.7/0.6 1/0.88',colorbalance=rs=-0.06:gs=-0.01:bs=0.08:rm=0.02:rh=0.03:bh=-0.03,vignette=PI/3.8"
 mkdir -p /data/media/graded
-ffmpeg -loglevel error -y -i "$IN" -vf "$VF" -an -c:v libx264 -preset veryfast -crf 14 -pix_fmt yuv420p -g 30 "$OUT"
-ffprobe -v error -count_frames -select_streams v -show_entries stream=nb_read_frames,width,height -of csv=p=0 "$OUT"
+ffmpeg -v error -y -i /data/media/input/main.mp4 -an -vf "fps=30,$G,format=yuv420p" -c:v libx264 -preset veryfast -crf 14 -g 15 /data/media/graded/graded.mp4
+ffprobe -v error -count_frames -select_streams v -show_entries stream=nb_read_frames,width,height -of csv=p=0 /data/media/graded/graded.mp4
