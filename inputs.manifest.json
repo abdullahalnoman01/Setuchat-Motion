@@ -1,0 +1,84 @@
+{
+ "note": "inputs live in /data/media/input (never committed)",
+ "files": [
+  {
+   "original": "Setuchat Content 2 before motion.mp4 (brief calls it 'Setuchat Content 2 before motion (1).mp4')",
+   "safe": "main.mp4",
+   "size": 173739328,
+   "sha256": "6b76dcbb67288218d6fe65b522e88259a6b48b14fe0795816a426ec546c4313b"
+  },
+  {
+   "original": "Extend your footage. Never reshoot again ... .mp4",
+   "safe": "reference.mp4",
+   "size": 3550812,
+   "sha256": "4769aaf056cbbbb4ec80893afb5788db7d21156095e11bce59b2d4bcd48a9931"
+  },
+  {
+   "original": "minimalist-vector-logo-emblem-for-ai-customer-supp.png (repo assets/)",
+   "safe": "logo.png",
+   "size": 77954,
+   "sha256": "19010a00f3fbf436f4580a4b6b5b3bf8287f47a276d1f846341ba3705d713968"
+  },
+  {
+   "original": "transcript.txt (repo assets/)",
+   "safe": "transcript.txt",
+   "size": 2352,
+   "sha256": "a5d038e4054824c5f4b213354402b1ce4c06f18c5b4bc0ab9bdc5fe942835992"
+  },
+  {
+   "original": "Motion Vdo Instruction.txt (repo assets/)",
+   "safe": "motion_brief.txt",
+   "size": 42272,
+   "sha256": "e24e72161fee8cd025a7693bdfc5de8b3ed7d5908d2bec13aaa1c405fe2d63e6"
+  }
+ ],
+ "ffprobe_main": {
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+   {
+    "codec_name": "aac",
+    "codec_type": "audio",
+    "sample_rate": "48000",
+    "channels": 2,
+    "r_frame_rate": "0/0",
+    "nb_frames": "3211"
+   },
+   {
+    "codec_name": "h264",
+    "codec_type": "video",
+    "width": 1080,
+    "height": 1920,
+    "r_frame_rate": "60/1",
+    "nb_frames": "4108"
+   }
+  ],
+  "format": {
+   "duration": "68.466667",
+   "bit_rate": "20300602"
+  }
+ },
+ "ffprobe_reference": {
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+   {
+    "codec_name": "h264",
+    "codec_type": "video",
+    "width": 960,
+    "height": 720,
+    "r_frame_rate": "24/1",
+    "nb_frames": "638"
+   },
+   {
+    "codec_name": "aac",
+    "codec_type": "audio",
+    "r_frame_rate": "0/0",
+    "nb_frames": "575"
+   }
+  ],
+  "format": {
+   "duration": "26.700091"
+  }
+ }
+}
