@@ -1,0 +1,871 @@
+==========================================================================================
+  AI AGENT INSTRUCTIONS — VIDEO EDIT VERSION
+  SetuChat Reel: Motion-Graphics Edit + Checkpoint, GitHub Backup & Handoff Protocol
+==========================================================================================
+
+READ THIS WHOLE FILE BEFORE DOING ANYTHING.
+
+You (the AI agent) will edit a short vertical video with high-end kinetic typography.
+You will receive TWO instruction files:
+
+  A) THIS FILE  ("AI Agent Instructions — Video Edit Version")
+     = HOW to work: access, setup, pipeline, tools, verification, backup, handoff.
+  B) THE MOTION BRIEF  ("Motion Vdo Instruction.txt")
+     = WHAT the video must look and sound like: every shot, word, colour, font, preset,
+       UI overlay, timing rule and QA check. It is the CREATIVE SOURCE OF TRUTH.
+
+Priority when they disagree:
+  1. The user's newest chat message
+  2. The MOTION BRIEF (for anything about the look, timing, words, brand, sound)
+  3. This file (for anything about process, tools, backup, verification)
+Record every conflict and how you resolved it in DECISIONS.md.
+
+You can be stopped at ANY moment because of a usage, message or time limit. You will NOT
+get a warning. A different agent, on a different computer, with ZERO memory of this chat,
+will continue your work.
+
+That means:
+  1. Your only memory is the GitHub repo.
+  2. Code, data (JSON) and notes that are not pushed count as lost.
+  3. Big media files (videos, mattes, frame sequences, renders) are NEVER in the repo.
+     They live only on the current computer and disappear with it. So every media file
+     must be REPRODUCIBLE from a script in the repo + the original input files.
+  4. You push after every MEANINGFUL micro-task (and after every finished shot).
+  5. Pushing costs tool calls too. The notes in PROGRESS.md matter more than the
+     number of pushes.
+
+Mindset: "If I'm stopped right now, can a stranger open PROGRESS.md, re-upload the input
+files, run the listed scripts and continue within a few minutes?" If not, fix the notes
+and push now.
+
+
+==========================================================================================
+  0. FILL-IN SECTION  (the USER edits ONLY this section)
+==========================================================================================
+REPO_URL     : https://github.com/abdullahalnoman01/Setuchat-Motion
+GITHUB_TOKEN : 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
+BRANCH       : main
+MODE         : NEW TASK          (NEW TASK  or  RESUME)
+
+INPUT FILES (the user uploads ALL of these in EVERY session, NEW TASK and RESUME):
+  1. MAIN VIDEO  : Setuchat Content 2 before motion (1).mp4
+  2. REFERENCE   : Extend your footage. Never reshoot again ... .mp4
+  3. LOGO        : minimalist-vector-logo-emblem-for-ai-customer-supp (1).png
+  4. TRANSCRIPT  : the Bangla script (also in Section 9 of the MOTION BRIEF)
+  5. MOTION BRIEF: Motion Vdo Instruction.txt
+  6. THIS FILE
+
+TASK:
+<<<
+Edit the MAIN VIDEO into a finished 1080x1920 vertical SetuChat reel that looks like it
+was cut by the same editor who made the REFERENCE video ("Agentic Extend by invideo"):
+same kinetic typography system, same two-weight text (thin white support words + heavy
+coloured hero words), words that stack and collide, big words masked BEHIND the speaker,
+motion-blur stretch-in entries, 3D bends/flips, outline echoes, word-by-word build-up
+synced to speech, UI overlays, punch-in reframes, fast pace, dark cinematic grade.
+
+Rebrand it to SetuChat: blue #3660F3, cyan #14F4F6, white, and the blue→cyan gradient.
+No red anywhere. Bangla on-screen text uses the exact spelling of the script. The call to
+action is the last sentence of the script: "কানেক্ট হোন SetuChat এর সঙ্গে।" plus the
+logo end card.
+
+Follow the MOTION BRIEF A to Z: Section 0 (file facts), 1 (deliverable), 2 (word timing),
+3 (style system and presets A–J, depth/matte, camera language, grade, persistent
+elements, sound), 4 (brand), 5 (typography), 6 (UI-1 to UI-8), 7 (hero logic),
+8 (shot-by-shot plan), 9 (script), 10 (rhythm/density), 11 (pipeline), 12 (QA).
+It must NOT look like a normal captioned video. When in doubt, copy what the reference
+does.
+>>>
+
+DEFINITION OF DONE (= MOTION BRIEF Section 12, every box checked WITH evidence):
+  [ ] Looks like the reference at a glance (dark grade, thin white + heavy colour words,
+      stacked/colliding clusters, words behind the person, motion-blur entries).
+  [ ] No red anywhere. Only #3660F3, #14F4F6, white, and the blue→cyan gradient.
+  [ ] Every spoken word is on screen, synced to its start (0 to 2 frames early).
+  [ ] On-screen spelling = script exactly; every Bangla conjunct and vowel sign renders
+      correctly (no broken glyphs, no dotted circle ◌).
+  [ ] Clean mattes (no halo or chattering hair) in all behind-the-person shots.
+  [ ] Punch-ins never blurry or pixelated (upscaled master, max 145%).
+  [ ] Text inside the platform safe zones (except intentional hero edge bleeds).
+  [ ] No cross-dissolves, slow fades, subtitle bars or emoji stickers.
+  [ ] UI-1 to UI-7 (UI-8 optional) in the right shots, never covering the face.
+  [ ] CTA "কানেক্ট হোন SetuChat এর সঙ্গে।" + logo end card clear and held to the end.
+  [ ] Voice clean at -14 LUFS integrated, true peak ≤ -1 dB, SFX never masking words.
+  [ ] Output: 1080x1920, ~68.5 s (same length as the main video), H.264 High MP4,
+      16–20 Mbps, AAC 320 kbps 48 kHz.
+  [ ] Repo: README explains how to regenerate the final video from the inputs; PROGRESS.md
+      = DONE; a 480p proxy of the final is in output/proxy/; the final MP4 was delivered.
+
+TECH / CONSTRAINTS:
+  - Code-based pipeline (no After Effects / Topaz in the sandbox): ffmpeg + Python +
+    Remotion (React). Use the closest open-source equivalent for any paid tool the brief
+    names, and log the substitution in DECISIONS.md.
+  - Never cut, speed up, re-time or pitch-shift the speech. Picture length = audio length.
+
+Rules:
+- MODE = RESUME → the task is already in PROGRESS.md in the repo. Read it and continue.
+- Extra instructions in the user's chat message also apply. If they conflict with this
+  file, the user's newest message wins. Record the conflict in DECISIONS.md.
+
+
+==========================================================================================
+  1. ACCESS, RESOURCES & TOOLS  (verify ALL of this in the first session; re-verify on
+     RESUME)
+==========================================================================================
+
+Run the checks below at startup and write the results in PROGRESS.md → Environment
+status. If something REQUIRED is missing, tell the user exactly what to provide and wait.
+If something OPTIONAL is missing, use the listed fallback and log it in DECISIONS.md.
+
+1.1  REQUIRED access
+--------------------
+  [ ] The 6 input files are attached. Locate them (e.g. `find / -iname "*.mp4" -size +1M
+      2>/dev/null | grep -v node_modules`) and COPY them into /data/media/input/ with
+      SAFE names:
+        main.mp4, reference.mp4, logo.png, transcript.txt, motion_brief.txt
+      Record original name → safe name, size and sha256 in inputs.manifest.json.
+      If a file is missing → ask the user to upload it. Do not invent content.
+  [ ] Internet access to: github.com, pypi.org, registry.npmjs.org, huggingface.co,
+      fonts.google.com / github.com/google/fonts (font files). Test:
+        for u in https://github.com https://pypi.org https://registry.npmjs.org \
+                 https://huggingface.co https://fonts.google.com; do
+          curl -s -o /dev/null -w "%{http_code} $u\n" --max-time 10 "$u"; done
+      No internet → ask the user to enable it. The task cannot be done offline (models,
+      fonts and the repo all need it).
+  [ ] GitHub token with write access to REPO_URL (tested by the first push).
+  [ ] Disk: `df -h /data` → need at least 15 GB free. Less → work in chunks and delete
+      frame sequences right after each chunk is encoded.
+
+1.2  Tools to install (put every command in PROGRESS.md → Environment setup)
+-----------------------------------------------------------------------------
+  - ffmpeg / ffprobe (check `ffmpeg -version`; needs libx264, loudnorm, zscale optional).
+  - Python 3.10+ : numpy, opencv-python-headless, pillow, soundfile, scipy,
+    faster-whisper (or whisperx), torch + torchvision (CPU build is fine),
+    Real-ESRGAN (realesrgan / basicsr) or realesrgan-ncnn-vulkan binary,
+    Robust Video Matting (RVM, torch hub "PeterL1n/RobustVideoMatting", mobilenetv3).
+    Put them in requirements.txt with pinned versions.
+  - Node 18+ : remotion, @remotion/cli, @remotion/renderer, @remotion/motion-blur,
+    @remotion/fonts, @remotion/media-utils, react, react-dom, typescript.
+    Check whether Remotion can use the system Chromium (`--browser-executable`) if its
+    own headless browser can't be downloaded.
+  - Fonts (download real font files into assets/fonts/, all SIL OFL, OK to commit):
+      Anek Bangla (variable, ExtraBold 800 / Bold 700), Noto Sans Bengali (300–900),
+      Hind Siliguri (300/400/700), Inter Tight (400/900) or Inter Display.
+    Write the license note in assets/fonts/LICENSES.md.
+
+1.3  Compute realities and fallbacks
+------------------------------------
+  - Assume CPU only (check `nvidia-smi`). Plan for slow jobs:
+      * Work internally at 30 fps (brief allows 30 fps output). 68.47 s ≈ 2055 frames.
+      * Whisper large-v3 on CPU is slow → use faster-whisper large-v3 with
+        compute_type=int8, language="bn", word_timestamps=True. If too slow, use
+        medium, then force-align the SCRIPT text to the audio (WhisperX alignment or
+        a CTC aligner). ASR is for timing ONLY.
+      * RVM mobilenetv3 runs on CPU (downsample_ratio 0.25–0.4). Process in chunks of
+        300 frames, resumable.
+      * Real-ESRGAN on CPU is slow → upscale in resumable chunks (frames already done
+        are skipped). Fallback if impossible: realesr-general-x4v3 / 2x model, or
+        lanczos + unsharp + 2–3% grain, and keep punch-ins ≤ 125%. Log the choice.
+  - The sandbox may kill long processes. Every long job must be:
+      (a) a script in scripts/, (b) chunked, (c) resumable (skip finished chunks),
+      (d) started with nohup in the background with a log in scripts/logs/,
+      (e) checkpointed (pushed) BEFORE it starts.
+  - You cannot hear audio and cannot "watch" video. You verify with frames, contact
+    sheets, measurements and scripts (Section 7). Never claim you watched or listened.
+
+1.4  Things you must NOT need
+-----------------------------
+  - No paid tools, no accounts other than GitHub, no stock-media downloads with unclear
+    licences. SFX are SYNTHESIZED by script (Section 6, Step 8). A music bed is OPTIONAL
+    and only added if the user supplies a licensed track.
+
+
+==========================================================================================
+  2. GOLDEN RULES  (never break these)
+==========================================================================================
+
+ 1. CLONE / PULL THE REPO FIRST, before any other work.
+ 2. THE REPO IS THE SINGLE SOURCE OF TRUTH for code, data and notes. Trust real files
+    over logs.
+ 3. MEDIA NEVER GOES INTO GIT. Inputs, upscales, mattes, frames, shot renders and the
+    final full-quality MP4 stay in /data/media/. Only small previews (JPG/PNG), the
+    480p proxy (< 20 MB) and small synthesized SFX (< 5 MB total) may be committed.
+ 4. EVERYTHING REPRODUCIBLE. Each media file has a script and an exact command in
+    PROGRESS.md → "Regenerate media". A new agent must be able to rebuild all
+    intermediates from the inputs with those commands.
+ 5. THE BRIEF DECIDES THE LOOK. Do not simplify, "modernize" or swap presets, colours,
+    fonts, words or shot order. If the brief is unclear, check the reference frames;
+    if still unclear, pick the option closest to the reference and log it.
+ 6. SCRIPT SPELLING ON SCREEN, ALWAYS. ASR text is only for timing.
+ 7. MICRO-TASKS: 1–2 tool calls each. In the big build step, ONE SHOT = ONE micro-task.
+ 8. PUSH AFTER EVERY MEANINGFUL MICRO-TASK (Section 10), every 3–4 tool calls at the
+    latest, and ALWAYS before a long job.
+ 9. NEVER DELETE WORK. Move replaced code to archive/ with a 1-line reason.
+10. LOG EVERYTHING: commands → COMMANDS.md, progress → PROGRESS.md, choices →
+    DECISIONS.md.
+11. NO SECRETS IN THE REPO. Write <TOKEN> instead of the token, everywhere.
+12. NO DESTRUCTIVE GIT. Never: push --force, reset --hard on pushed commits,
+    clean -fdx, deleting branches.
+13. WRITE FOR A STRANGER: exact paths, frame numbers, timecodes, commands.
+14. HALF-DONE CODE IS STILL PUSHED, marked  TODO(agent): <what is missing>
+15. DON'T LOOP. Same approach fails 3 times → stop, log it in Problems, try another
+    approach or ask the user.
+16. VERIFY VISUALLY. No shot is "done" until its key frames were rendered, viewed and
+    compared side by side with the matching reference frames.
+
+
+==========================================================================================
+  3. STARTUP PROCEDURE  (do this exactly, in order)
+==========================================================================================
+
+3.1  Network check (Section 1.1). Blocked → ask the user to enable internet access.
+
+3.2  Git identity + safe token storage
+--------------------------------------
+The token is stored ONLY in ~/.git-credentials (outside the repo). Never in the remote
+URL, .git/config or any file. Never echo or print it.
+
+    cd /data
+    git config --global user.name  "AI Agent"
+    git config --global user.email "ai-agent@users.noreply.github.com"
+    git config --global init.defaultBranch main
+    git config --global pull.rebase true
+    git config --global credential.helper store
+    # Replace <TOKEN> with the real token in YOUR tool call only. Never log this command.
+    printf 'https://x-access-token:%s@github.com\n' '<TOKEN>' > ~/.git-credentials
+    chmod 600 ~/.git-credentials
+    git clone https://github.com/<owner>/<repo>.git project
+    cd project
+    git checkout <BRANCH> 2>/dev/null || git checkout -b <BRANCH>
+
+In COMMANDS.md log this only as: "Configured git credentials (token hidden)".
+
+3.3  Inputs
+-----------
+    mkdir -p /data/media/{input,work,ref_frames,upscale,graded,matte,shots,audio,final}
+Copy the inputs to /data/media/input/ with safe names (Section 1.1), then:
+    sha256sum /data/media/input/*
+On RESUME: compare with inputs.manifest.json. Different hash → STOP and ask the user
+whether the files changed (a changed main video breaks all word timings).
+
+3.4  Decide: NEW TASK or RESUME
+-------------------------------
+A) Repo empty / no PROGRESS.md → NEW TASK
+   1. Create the structure (Section 4) and .gitignore (Section 5).
+   2. Save THIS file as AI_AGENT_INSTRUCTIONS.md (token replaced by <TOKEN>).
+   3. Save the MOTION BRIEF unchanged as brief/MOTION_BRIEF.md.
+   4. Create scripts/checkpoint.sh and scripts/autopush.sh (Section 11), chmod +x,
+      check `command -v flock`, start the auto-push loop.
+   5. Create inputs.manifest.json (names, sizes, sha256, ffprobe summary).
+   6. Create PROGRESS.md: paste the TASK and Definition of Done, then the plan from
+      Section 6 (Steps + micro-tasks; Step 7 gets one micro-task PER SHOT listed in
+      brief Section 8).
+   7. Create COMMANDS.md, DECISIONS.md, README.md (stub).
+   8. Checkpoint:  ./scripts/checkpoint.sh "step 0/11: project setup and plan"
+
+B) PROGRESS.md exists → RESUME
+   1. Read PROGRESS.md (QUICK STATE first), DECISIONS.md, last ~40 lines of COMMANDS.md.
+   2. git log --oneline --invert-grep --grep='^auto:' -25
+   3. Find the micro-task marked  ← IN PROGRESS  (or the first unchecked one).
+   4. Read the real code for it: git show --stat HEAD~5..HEAD ;
+      grep -rn "TODO(agent)" --exclude-dir=node_modules .
+   5. Start the auto-push loop (Section 11.3).
+   6. Reinstall the environment (PROGRESS.md → Environment setup).
+   7. REBUILD MISSING MEDIA: the new computer has NONE of the intermediates. Run the
+      commands in PROGRESS.md → "Regenerate media" for everything the current step
+      needs (crop/upscale/grade, matte, audio prep, already-finished shots only when
+      the final assembly needs them). Start long ones in the background (Section 9).
+   8. Logs and files disagree → trust the files, fix PROGRESS.md.
+   9. Session History: "Session #X started, resuming from step Y.Z".
+  10. Checkpoint:  ./scripts/checkpoint.sh "resume: session #X started at step Y.Z"
+
+
+==========================================================================================
+  4. REQUIRED REPO STRUCTURE
+==========================================================================================
+
+project/
+├── AI_AGENT_INSTRUCTIONS.md     ← copy of this file (no token)
+├── PROGRESS.md                  ← task, plan, quick state, next action  (MOST IMPORTANT)
+├── COMMANDS.md                  ← every command + short result, numbered
+├── DECISIONS.md                 ← choices and WHY (incl. every brief interpretation)
+├── README.md                    ← how to install, regenerate media, render the final
+├── .gitignore
+├── inputs.manifest.json         ← input names, sizes, sha256, ffprobe facts
+├── requirements.txt             ← pinned Python deps
+├── brief/
+│   ├── MOTION_BRIEF.md          ← the motion brief, unchanged
+│   └── reference_notes.md       ← your frame-by-frame study of the reference
+├── data/                        ← the "edit decision" data (small JSON, ALWAYS pushed)
+│   ├── asr_words.json           ← raw ASR word timestamps
+│   ├── words.json               ← script words + start/end + phrase_id (on-screen text)
+│   ├── shots.json               ← shot plan from brief Section 8, snapped to words.json
+│   ├── sfx_cues.json            ← SFX type + time per cue
+│   └── crop.json / grade.json   ← measured crop box, grade parameters
+├── scripts/
+│   ├── 01_probe.sh              ← ffprobe + cropdetect + reference frame grabs
+│   ├── 02_transcribe_align.py   ← word timing → data/words.json
+│   ├── 03_build_shotplan.py     ← brief Section 8 → data/shots.json (+ validation)
+│   ├── 04_crop_upscale.sh/.py   ← crop pillarbox, AI upscale (chunked, resumable)
+│   ├── 05_grade.sh              ← dark cinematic grade (brief 3.6)
+│   ├── 06_matte.py              ← RVM person matte (chunked, resumable)
+│   ├── 07_audio.py              ← voice clean + loudness + synthesized SFX + mix
+│   ├── 08_render_shot.sh        ← render ONE shot (frame range) with Remotion
+│   ├── 09_assemble.sh           ← concat shots + mux audio + final encode + proxy
+│   ├── 10_qa.py                 ← contact sheets, timing check, colour check, loudness
+│   ├── checkpoint.sh            ← safe commit + push (Section 11)
+│   ├── autopush.sh              ← background safety net (Section 11)
+│   └── logs/                    ← trimmed logs
+├── remotion/
+│   ├── package.json
+│   └── src/
+│       ├── Root.tsx             ← composition 1080x1920, 30 fps, duration from audio
+│       ├── theme.ts             ← colours, fonts, sizes, safe zones (brief 1, 4, 5)
+│       ├── presets/             ← animation presets A–J exactly as named in brief 3.4
+│       ├── components/          ← Word, WordCluster, OutlineEcho, GlitchSquares,
+│       │                          PersistentElements, LogoEndCard, CurvedArrow, ...
+│       ├── ui/                  ← UI1_ChatBubble ... UI8_PromptPanel (brief Section 6)
+│       ├── layers/              ← Background, BehindText, PersonCutout, FrontText,
+│       │                          UILayer, Grain (layer order from brief Section 11)
+│       └── shots/               ← S01.tsx ... one file per shot from brief Section 8
+├── assets/
+│   ├── fonts/                   ← font files + LICENSES.md
+│   ├── logo.png                 ← SetuChat logo copy (small, OK to commit)
+│   └── sfx/                     ← synthesized SFX wav (small)
+├── output/
+│   ├── preview/                 ← key-frame stills, side-by-side vs reference, contact
+│   │                              sheets (JPG, ~200 KB each)
+│   └── proxy/                   ← 480p proxy of the latest full render (< 20 MB)
+└── archive/                     ← replaced code, each with a 1-line reason
+
+Media working folders (OUTSIDE the repo, never committed, rebuilt by scripts):
+/data/media/input  /work  /ref_frames  /upscale  /graded  /matte  /shots  /audio  /final
+
+
+==========================================================================================
+  5. MEDIA RULES + .gitignore
+==========================================================================================
+
+.gitignore:
+
+    node_modules/
+    .venv/
+    venv/
+    __pycache__/
+    *.pyc
+    .cache/
+    remotion/out/
+    remotion/build/
+    .env
+    .env.*
+    *.key
+    *.pem
+    .git-credentials
+    .DS_Store
+    Thumbs.db
+    scripts/logs/autopush.log
+    scripts/logs/autopush.heartbeat
+    # media: never commit (they live in /data/media)
+    *.mp4
+    *.mov
+    *.mkv
+    *.webm
+    *.wav
+    *.exr
+    *.tif
+    *.tiff
+    !output/proxy/*.mp4
+    !assets/sfx/*.wav
+
+Rules:
+- Preview images: JPG quality 80, max 1080 px tall, contact sheets max ~1 MB.
+- The proxy: `ffmpeg -i final.mp4 -vf scale=-2:854 -c:v libx264 -crf 30 -preset slow
+  -c:a aac -b:a 96k output/proxy/setuchat_reel_proxy.mp4` (must be < 20 MB).
+- The final MP4 (~150 MB at 16–20 Mbps) is NOT committed. Deliver it to the user
+  directly in chat. Optional, if the user wants it on GitHub: upload it as a GitHub
+  Release asset with the REST API (token from ~/.git-credentials, never printed).
+- If a secret was EVER committed: don't rewrite history yourself. Tell the user to revoke
+  it now and note it in PROGRESS.md → Problems (without the secret).
+
+
+==========================================================================================
+  6. THE PIPELINE  (= the Plan in PROGRESS.md; brief section in [brackets])
+==========================================================================================
+
+Every Step ends with a checkpoint. Every micro-task lists its CHECK (proof it works).
+
+STEP 0 — Setup (Section 3).
+
+STEP 1 — Probe inputs + study the reference  [brief 0, 3, 10]
+  1.1 ffprobe both videos → inputs.manifest.json. Confirm: main 1920x1080 60 fps 68.47 s
+      with audio; reference 960x720 24 fps 26.7 s. Differences → DECISIONS.md.
+  1.2 cropdetect on the main video (`-vf cropdetect=24:2:0` over several seconds) →
+      data/crop.json. Brief expects about crop=592:1072:664:4. Verify with a still.
+  1.3 Grab reference frames every 0.25 s → /data/media/ref_frames/. Build 2–3 contact
+      sheets → output/preview/ref_contact_*.jpg.
+  1.4 Write brief/reference_notes.md: for each reference shot (cut list in brief 0),
+      what the type does (sizes, weights, entry preset, blur length, overlap, behind/in
+      front, bends, echoes, UI). Save 10–15 "style target" stills as
+      output/preview/ref_target_XX.jpg. You will compare your shots against these.
+  CHECK: the notes cover every preset A–J in brief 3.4 with at least one reference
+  frame each.
+
+STEP 2 — Word-level timing  [brief 2, 9]
+  2.1 Extract audio: `ffmpeg -i main.mp4 -vn -ac 1 -ar 16000 /data/media/audio/asr.wav`
+      and a full-quality copy (48 kHz) for the mix.
+  2.2 faster-whisper (language "bn", word_timestamps=True) → data/asr_words.json.
+      Background job if slow (Section 9).
+  2.3 Align SCRIPT words (brief Section 9, split on spaces; keep punctuation attached
+      to its word) to ASR words with sequence alignment (e.g. difflib/Needleman–Wunsch on
+      normalized text; interpolate unmatched words inside their phrase). Output
+      data/words.json: [{i, text, start, end, phrase_id}], text = script spelling.
+  CHECK: word count = script word count; times strictly increasing; every word inside
+  one of the measured speech phrases in brief 2 (±0.3 s); first word ≈ 0.5 s, last
+  word ends ≈ 67.4 s. Write a small timing table to scripts/logs/timing_check.log.
+
+STEP 3 — Shot plan data  [brief 7, 8, 10]
+  3.1 Transcribe brief Section 8 into data/shots.json, one object per shot:
+      {id, start, end, words:[i...], heroes:[{i, colour B|C|W|gradient, size, preset}],
+       support_preset, layer (front|behind per word), reframe {scale, x, y, cut|push},
+       ui:[UI-n], effects:[outline_echo, bend, flip, glitch...], sfx:[...]}.
+      Snap all start/end times to words.json (brief times are ±0.5 s estimates).
+  3.2 Validation script: every word belongs to exactly one shot; heroes match brief
+      Section 8; density/rhythm rules of brief 10 (average shot 1.5–2.0 s, about
+      35–40 reframes/cuts, no static hold beyond the brief's limit); max punch-in 145%;
+      face-coverage rule from brief 10.
+  CHECK: validation passes; print a shot table to scripts/logs/shotplan.log.
+
+STEP 4 — Picture prep  [brief 1, 3.5, 3.6]
+  4.1 Crop the pillarbox (data/crop.json) → /data/media/work/cropped.mp4 at 30 fps
+      (high quality: -crf 12 or ProRes).
+  4.2 AI upscale to a working master (ideal 2160x3840, minimum 1080x1920), chunked and
+      resumable → /data/media/upscale/master.mp4. Background job (Section 9).
+  4.3 Grade per brief 3.6 (dark, moody, cinematic; tame the bright glass wall and
+      white shirt; deeper shadows; warm accents; vignette) as an ffmpeg filter chain or
+      .cube LUT stored in data/grade.json / assets/. Light sharpen + 2–3% grain at the
+      end of the pipeline, not here, if grain is done in Remotion.
+  CHECK: output/preview/grade_before_after_XX.jpg (3 timestamps) next to reference
+  stills; brightness histogram mean noticeably lower; skin still natural.
+
+STEP 5 — Person matte  [brief 3.3]
+  5.1 RVM on the graded/upscaled master (or on the cropped clip, then scaled the same
+      way) → /data/media/matte/matte.mp4 (grayscale alpha, same size/fps/frame count as
+      the background).
+  5.2 Refine: feather 2–3 px, choke 1 px, temporal smoothing to stop hair chatter.
+  CHECK: preview stills of the matte over a solid cyan background at 5 timestamps,
+  zoomed hair edges → output/preview/matte_check_XX.jpg. No halos, no missing hands.
+  Frame count of matte = background.
+
+STEP 6 — Remotion design system  [brief 3.1–3.4, 3.7, 4, 5, 6, 11]
+  6.1 Remotion project, composition 1080x1920 @30 fps, duration = audio frames. Uses
+      <OffthreadVideo> for the graded background and the matte, aligned frame-exact.
+  6.2 Fonts loaded from assets/fonts via @remotion/fonts. BANGLA SHAPING TEST CARD:
+      render a still with every conjunct/vowel sign listed in brief 5 plus every hero
+      word, in every font/weight used → output/preview/bangla_test.jpg.
+      CHECK: view it; no dotted circles, no detached vowel signs, no wrong reph.
+      Never split Bangla into letters except by grapheme cluster (Intl.Segmenter).
+  6.3 theme.ts: exact colours (brief 4), sizes (brief 5), tracking/leading, safe zones
+      (brief 1), blue-hero edge highlight/glow (brief 4).
+  6.4 Presets A–J as reusable components with the EXACT durations, easings, blur
+      lengths, overshoots and directions in brief 3.4. Real motion blur on moving text
+      (@remotion/motion-blur, shutter 180°, 16 samples, brief 11.6).
+      CHECK: one still strip per preset (frames 0,2,4,6,8,12) →
+      output/preview/preset_X.jpg, compared with the matching reference frames.
+  6.5 Layer stack exactly as brief 11.4: graded background → BEHIND-text → person
+      cut-out (background × matte) → FRONT-text → UI → corner brand elements → grain.
+      Reframes/punch-ins apply to background AND matte together.
+  6.6 Persistent elements (brief 3.7), glitch squares, outline echo, 3D bend/flip,
+      curved arrow (trim-path draw-on), loading ring, logo end card (brief 4).
+  6.7 UI-1 … UI-8 components (brief 6): dark glass, radius, border, backdrop blur, tilt,
+      float, entries/exits, exact texts.
+  CHECK each: a still → output/preview/; Step 6 ends with one 3–5 s test render.
+
+STEP 7 — Build the shots  [brief 8, 10]   ← biggest step, ONE MICRO-TASK PER SHOT
+  For each shot S01, S02, … in brief Section 8 (in order):
+    a) Implement remotion/src/shots/SXX.tsx from data/shots.json.
+    b) Render 3–5 key stills (word entries, cluster peak, exit) → view them.
+    c) Side-by-side with the closest reference target still →
+       output/preview/SXX_vs_ref.jpg. Fix until the style matches (size contrast,
+       collision/overlap, behind-person masking, blur, angle).
+    d) Check: every word of the shot appears on its start frame (0–2 frames early),
+       spelling = script, face never fully covered, safe zones.
+    e) Render the shot's frame range → /data/media/shots/SXX.mp4
+       (`./scripts/08_render_shot.sh SXX`).
+    f) Update PROGRESS.md (tick SXX, NEXT ACTION = next shot) + checkpoint
+       "wip(7.SXX): shot SXX done".
+  After every ~5 shots: render a 480p proxy of everything so far → output/proxy/ and
+  a contact sheet → output/preview/progress_contact.jpg.
+
+STEP 8 — Sound  [brief 3.8]
+  8.1 Voice: light high-pass (80 Hz), gentle denoise only if needed, loudness normalize
+      to -14 LUFS integrated, true peak -1 dB (two-pass ffmpeg loudnorm).
+  8.2 Synthesize SFX with Python/ffmpeg (no downloads): whoosh (band-passed noise sweep,
+      200–400 ms), pop/click (short sine/noise burst), sub-boom/riser-hit, digital glitch
+      (bit-crushed noise stutter). Save small WAVs to assets/sfx/.
+  8.3 data/sfx_cues.json from shots.json: whoosh on MOTION-BLUR STRETCH-IN heroes, pops
+      on POP entries and UI clicks, sub-booms on the 4–5 major beats named in brief 3.8,
+      glitch on glitch transitions.
+  8.4 Mix: SFX at -20 to -24 dB under the voice, never on top of a word's consonant
+      onset; optional music bed only if supplied (-28 to -30 LUFS, ducked).
+  CHECK: measure final mix loudness (ebur128) → log; waveform image of voice vs SFX →
+  output/preview/audio_waveform.jpg.
+
+STEP 9 — Assembly + final render  [brief 1]
+  9.1 Concat shots (or render the whole composition in frame-range chunks with
+      `--frames=a-b`, then concat with the concat demuxer, no re-encode until final).
+  9.2 Final encode: 1080x1920, 30 fps, H.264 High, 16–20 Mbps (2-pass or CRF tuned to
+      land in range), yuv420p, +faststart, AAC 320 kbps 48 kHz → /data/media/final/
+      setuchat_reel_final.mp4.
+  9.3 Proxy → output/proxy/setuchat_reel_proxy.mp4.
+  CHECK: ffprobe: size, fps, codec, bitrate, duration = main video duration (±1 frame);
+  audio/video in sync (speech start ≈ 0.5 s in both).
+
+STEP 10 — QA  [brief 12]
+  10.1 scripts/10_qa.py produces evidence for every Definition-of-Done box:
+       - contact sheet every 1 s of the final → output/preview/final_contact_*.jpg
+       - side-by-side grid final vs reference style targets
+       - timing report: for every word, its start time vs the frame it first appears
+         (read from the render schedule) → must be 0–2 frames early
+       - colour check: render the text/UI layers alone (transparent background) at
+         sample frames and scan for red/orange/yellow/purple hues → must be zero
+       - Bangla glyph check (re-view the test card + 5 random hero words in the final)
+       - safe-zone check (text bounding boxes vs safe zones)
+       - loudness report
+  10.2 Fix every failure, re-render only the affected shots, re-assemble, re-run QA.
+  CHECK: write the filled QA checklist with links to evidence files into PROGRESS.md.
+
+STEP 11 — Deliver (Section 12).
+
+
+==========================================================================================
+  7. HOW TO VERIFY WITHOUT WATCHING OR HEARING
+==========================================================================================
+
+- Stills: `ffmpeg -ss <t> -i file.mp4 -frames:v 1 -q:v 3 out.jpg` (Remotion:
+  `npx remotion still`). View them with your image-viewing tool.
+- Strips/contact sheets: ffmpeg `tile` filter or Python PIL. Label every tile with
+  timecode.
+- Side-by-side vs reference: hstack your frame and the reference target (scaled to the
+  same height). Compare: hero size vs support size ratio, overlap amount, masking,
+  blur streak length, letter spacing, darkness of the grade.
+- Timing: compare words.json with the frame where each word's opacity first > 0.
+- Audio: `ffmpeg -i x.wav -af ebur128=peak=true -f null -` and loudnorm print_format=json.
+- Never mark a check as passed without a saved evidence file or log line.
+
+
+==========================================================================================
+  8. PROGRESS.md FORMAT  (update QUICK STATE at every checkpoint)
+==========================================================================================
+
+# PROGRESS
+
+## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
+- Overall: IN PROGRESS        (IN PROGRESS | BLOCKED | DONE)
+- Current: Step 7/11 → micro-task 7.S09 — Shot S09 (UI-3 order message)
+- Last action: S08 rendered to /data/media/shots/S08.mp4; preview
+  output/preview/S08_vs_ref.jpg
+- NEXT ACTION: Implement remotion/src/shots/S09.tsx from data/shots.json id "S09"
+  (TODO(agent) at line ~30: UI-3 slide-down not built). Then run
+  `./scripts/08_render_shot.sh S09`.
+- Media on THIS computer: cropped ✔ upscale ✔ graded ✔ matte ✔ audio ✔ shots S01–S08 ✔
+  (a NEW computer has none of these → run "Regenerate media")
+- Running background jobs: none   (or: "06_matte.py, log scripts/logs/matte.log,
+  chunk 4/7")
+- Last updated: <date time Asia/Dhaka> by Session #<n>
+
+## Task (copied exactly from the user)
+## Definition of Done (with evidence links when checked)
+## Plan (Steps 0–11 from Section 6; Step 7 = one line per shot)
+## Done so far (details)
+## Problems / Notes   (incl. "Ideas for later")
+## Environment status  (internet, GPU/CPU, disk, tool versions)
+## Environment setup   (exact install commands for a fresh computer)
+## Regenerate media    (exact commands in order, with rough durations)
+   1. cp inputs → /data/media/input (safe names), sha256 check vs inputs.manifest.json
+   2. ./scripts/04_crop_upscale.sh   (~?? min on CPU)
+   3. ./scripts/05_grade.sh
+   4. python scripts/06_matte.py     (~?? min)
+   5. python scripts/07_audio.py
+   6. for s in S01 S02 ...; do ./scripts/08_render_shot.sh $s; done
+   7. ./scripts/09_assemble.sh
+## External actions (user info from chat, decisions given by the user)
+## Session History
+
+
+==========================================================================================
+  9. LONG-RUNNING JOBS  (upscale, matte, ASR, renders)
+==========================================================================================
+
+  1. Checkpoint first (same bash call).
+  2. Start in the background:
+       nohup python scripts/06_matte.py > scripts/logs/matte.log 2>&1 &
+       echo $! > /tmp/job_matte.pid
+  3. Write it in QUICK STATE → Running background jobs.
+  4. Poll with short checks (`tail -n 5 scripts/logs/matte.log`; `kill -0 $(cat
+     /tmp/job_matte.pid)`), and do other useful micro-tasks meanwhile (e.g. build
+     presets while the matte runs).
+  5. Scripts must skip finished chunks, so re-running after a crash continues.
+  6. Done → verify output (frame count, a few stills), log, checkpoint.
+  7. If a job is killed 3 times → smaller chunks / lighter model, log in DECISIONS.md.
+
+
+==========================================================================================
+ 10. WHEN TO CHECKPOINT  (push immediately when ANY of these happens)
+==========================================================================================
+
+- A micro-task is finished (even a tiny one), especially every finished SHOT.
+- A script, component, preset or JSON data file was created or meaningfully changed.
+- A render, test, or QA run finished (success OR failure) → push its preview/log.
+- A decision was made, or the user gave new info in chat.
+- 3–4 tool calls have passed since the last push.
+- BEFORE a long job (install, upscale, matte, ASR, full render): push first.
+
+Combine the push with work in the same bash call whenever possible. Don't push after
+every single tool call.
+
+
+==========================================================================================
+ 11. CHECKPOINT SCRIPTS  (create once at NEW TASK setup)
+==========================================================================================
+
+11.1  scripts/checkpoint.sh
+---------------------------
+Protects against: secrets, files > 50 MB, RAW MEDIA in the repo, oversized previews,
+parallel pushes (flock), committing mid-rebase, hidden rebase conflicts, half-written
+files (auto mode).
+
+#!/usr/bin/env bash
+# Usage (manual):  ./scripts/checkpoint.sh "wip(3.2): form validation half done"
+# Usage (auto):    AUTO=1 ./scripts/checkpoint.sh "auto: checkpoint"
+# Exit codes: 0 ok/nothing to do, 1 blocked (secret/big file/bad state),
+#             2 push failed, 3 rebase conflict (aborted), 4 lock busy
+set -uo pipefail
+cd "$(git rev-parse --show-toplevel)" || exit 1
+MSG="${1:-wip: checkpoint}"
+AUTO="${AUTO:-0}"
+BRANCH="$(git symbolic-ref --short HEAD 2>/dev/null || echo main)"
+GITDIR="$(git rev-parse --git-dir)"
+
+# 0) LOCK: only one checkpoint at a time.
+#    Auto mode: skip this round if busy. Manual mode: wait up to 120s.
+exec 9>/tmp/checkpoint.lock
+if [ "$AUTO" = "1" ]; then
+  flock -n 9 || { echo "ℹ️ Another checkpoint is running. Skipped."; exit 0; }
+else
+  flock -w 120 9 || { echo "❌ Lock busy for 120s. Try again."; exit 4; }
+fi
+
+# 0b) Refuse to run in the middle of a rebase / merge / other git operation
+if [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ] || \
+   [ -f "$GITDIR/MERGE_HEAD" ] || [ -f "$GITDIR/index.lock" ]; then
+  echo "❌ Git is in the middle of a rebase/merge (or index.lock exists). Not committing."
+  echo "   Fix it first (see section 8.4). Auto-push stays paused until then."
+  [ "$AUTO" = "1" ] && exit 0 || exit 1
+fi
+
+# 0c) Auto mode only: skip if files are still being written (changed in last 30s)
+if [ "$AUTO" = "1" ]; then
+  RECENT="$(find . -path ./.git -prune -o -path ./node_modules -prune \
+            -o -path ./scripts/logs -prune -o -type f -mmin -0.5 -print -quit)"
+  if [ -n "$RECENT" ]; then
+    echo "ℹ️ Files changed in the last 30s (e.g. $RECENT). Skipped this round."
+    exit 0
+  fi
+fi
+
+git add -A
+
+# 1) Block known secret patterns in staged changes
+PATTERNS='ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{20,}|gh[ousr]_[A-Za-z0-9]{30,}|sk-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
+if git diff --cached -U0 | grep -E "^\+" | grep -Eq "$PATTERNS"; then
+  echo "❌ SECRET PATTERN FOUND in staged changes. Commit blocked."
+  git diff --cached --name-only
+  git reset -q
+  exit 1
+fi
+
+# 2) Block the actual stored token value, if one exists
+if [ -f ~/.git-credentials ]; then
+  TOK="$(sed -n 's#https://[^:]*:\([^@]*\)@.*#\1#p' ~/.git-credentials | head -1)"
+  if [ -n "$TOK" ] && git diff --cached | grep -qF "$TOK"; then
+    echo "❌ GITHUB TOKEN FOUND in staged changes. Commit blocked."
+    git reset -q
+    exit 1
+  fi
+fi
+
+# 3) Block files over 50 MB
+BIG="$(git diff --cached --name-only --diff-filter=AM | while read -r f; do
+  [ -f "$f" ] && [ "$(stat -c%s "$f")" -gt 52428800 ] && echo "$f"; done)"
+if [ -n "$BIG" ]; then
+  echo "❌ Files over 50 MB (add them to .gitignore or compress them):"; echo "$BIG"
+  git reset -q
+  exit 1
+fi
+
+# 3b) VIDEO PROJECT: block raw media anywhere except small proxies/previews
+MEDIA="$(git diff --cached --name-only --diff-filter=AM | grep -Ei '\.(mp4|mov|mkv|avi|webm|mxf|prores|wav|aif|aiff|flac|exr|tif|tiff)$' \
+  | grep -Ev '^(output/proxy/|output/preview/|assets/sfx/)' || true)"
+if [ -n "$MEDIA" ]; then
+  echo "❌ Raw media staged (keep it in /data/media, not in the repo):"; echo "$MEDIA"
+  git reset -q
+  exit 1
+fi
+SMALLMAX=26214400   # proxies/previews/sfx must stay under 25 MB each
+BIG2="$(git diff --cached --name-only --diff-filter=AM | grep -E '^(output/proxy/|output/preview/|assets/sfx/)' | while read -r f; do
+  [ -f "$f" ] && [ "$(stat -c%s "$f")" -gt $SMALLMAX ] && echo "$f"; done)"
+if [ -n "$BIG2" ]; then
+  echo "❌ Proxy/preview/sfx file over 25 MB (re-encode smaller):"; echo "$BIG2"
+  git reset -q
+  exit 1
+fi
+
+# 4) Commit (skip if nothing changed)
+if git diff --cached --quiet; then
+  [ "$AUTO" = "1" ] && [ -z "$(git log "origin/$BRANCH..HEAD" --oneline 2>/dev/null)" ] \
+    && { echo "ℹ️ Nothing to commit or push."; exit 0; }
+  echo "ℹ️ Nothing new to commit. Pushing any unpushed commits."
+else
+  git commit -q -m "$MSG"
+fi
+
+# 5) Sync + push. Conflicts are NEVER hidden: abort the rebase and report.
+for i in 1 2 3; do
+  if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+    if ! git pull -q --rebase origin "$BRANCH"; then
+      if [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ]; then
+        git rebase --abort
+        echo "❌ REBASE CONFLICT with origin/$BRANCH. Rebase aborted."
+        echo "   Your commit is safe locally: $(git log -1 --oneline)"
+        echo "   Tell the user. Do NOT force-push. See section 8.4."
+        exit 3
+      fi
+      echo "Pull failed (try $i/3, probably network). Retrying in 5s..."; sleep 5
+      continue
+    fi
+  fi
+  if git push -q -u origin "$BRANCH"; then
+    echo "✅ Pushed: $(git log -1 --oneline)"
+    exit 0
+  fi
+  echo "Push failed (try $i/3), retrying in 5s..."; sleep 5
+done
+echo "❌ PUSH FAILED after 3 tries. Work is committed locally. Tell the user."
+exit 2
+
+Then run:  chmod +x scripts/checkpoint.sh
+If `flock` is missing, install util-linux or tell the user. Don't remove the lock.
+
+11.2  Micro-task loop
+---------------------
+  1. DO      → one micro-task (one shot, one preset, one script…).
+  2. CHECK   → render/view stills, run the validation, or run the script.
+               Broken? Still continue to step 3 with a TODO(agent) note.
+  3. LOG     → PROGRESS.md QUICK STATE (Last action + NEXT ACTION), tick the box,
+               COMMANDS.md.
+  4. PUSH    → ./scripts/checkpoint.sh "wip(7.S09): UI-3 built, render pending"
+  5. CONFIRM → output says "✅ Pushed". Otherwise follow 11.4.
+Steps 3+4 in ONE bash call. Put the push in the same call as the work when you can:
+    ./scripts/08_render_shot.sh S09 2>&1 | tail -5; ./scripts/checkpoint.sh "wip(7.S09): rendered"
+
+Commit message format:
+  step 0/11: project setup and plan | wip(7.S09): ... | step 7/11: all shots done |
+  fix: ... | qa: ... | docs: ... | resume: session #3 at 7.S12 | done: ... |
+  auto: checkpoint 14:32 (autopush only)
+
+11.3  scripts/autopush.sh  (background safety net, every 4 minutes)
+------------------------------------------------------------------
+#!/usr/bin/env bash
+# Background auto-push every 4 minutes. Stop it with:  kill "$(cat /tmp/autopush.pid)"
+cd "$(git rev-parse --show-toplevel)" || exit 1
+mkdir -p scripts/logs
+echo $$ > /tmp/autopush.pid
+INTERVAL="${AUTOPUSH_INTERVAL:-240}"   # seconds (180–300 recommended)
+while true; do
+  sleep "$INTERVAL"
+  date '+%s' > scripts/logs/autopush.heartbeat
+  AUTO=1 ./scripts/checkpoint.sh "auto: checkpoint $(date '+%H:%M')" \
+    >> scripts/logs/autopush.log 2>&1
+  # keep the log small
+  tail -n 200 scripts/logs/autopush.log > scripts/logs/autopush.tmp && \
+    mv scripts/logs/autopush.tmp scripts/logs/autopush.log
+done
+
+Then run:
+    chmod +x scripts/autopush.sh
+    mkdir -p scripts/logs
+    if ! { [ -f /tmp/autopush.pid ] && kill -0 "$(cat /tmp/autopush.pid)" 2>/dev/null; }; then
+      nohup ./scripts/autopush.sh >/dev/null 2>&1 &
+    fi
+Every ~5 manual pushes, check it is alive (same bash call as a checkpoint):
+    if [ -f /tmp/autopush.pid ] && kill -0 "$(cat /tmp/autopush.pid)" 2>/dev/null; then
+      echo "auto-push: running"; tail -n 3 scripts/logs/autopush.log 2>/dev/null
+    else
+      echo "auto-push: STOPPED → restarting"; nohup ./scripts/autopush.sh >/dev/null 2>&1 &
+    fi
+The loop saves files, NOT notes. Still update PROGRESS.md and push manually.
+
+11.4  If the checkpoint fails
+-----------------------------
+  1. Exit 3 = rebase conflict. Rebase was aborted, commit is safe locally. Log it in
+     Problems, TELL THE USER, keep working locally. Never resolve big conflicts by
+     guessing. If the user asks: git pull --rebase origin <BRANCH>, fix files (keep both
+     when unsure), git add -A && git rebase --continue, checkpoint "fix: merge conflict".
+  2. "Middle of a rebase/merge" → git status; git rebase --abort (or merge --abort);
+     stale .git/index.lock with no git running → rm -f .git/index.lock.
+  3. Exit 1 "Raw media staged" / "over 50 MB" → add the file to .gitignore or move it
+     to /data/media; for proxies re-encode smaller.
+  4. 401/403 → token wrong/expired/no write access. Tell the user. Never print it.
+  5. Network error → retry once, then ask the user to enable internet.
+  6. Exit 4 = lock busy → check for a stuck git process, retry.
+  7. Never use --force.
+
+
+==========================================================================================
+ 12. FINISHING THE TASK
+==========================================================================================
+
+ 1. Every Definition-of-Done box checked WITH an evidence file/log (Step 10).
+ 2. Final MP4 in /data/media/final/setuchat_reel_final.mp4; proxy in output/proxy/.
+ 3. Deliver the final MP4 to the user in chat (download/attachment). Optional: GitHub
+    Release asset if the user asked.
+ 4. README.md: what this is, inputs needed, install, "Regenerate media", how to render
+    the final, where the previews are.
+ 5. PROGRESS.md: Overall = DONE, all boxes checked, a "How to use the result" section.
+ 6. Final checkpoint:  ./scripts/checkpoint.sh "done: SetuChat reel final render + QA"
+    Optional tag:  git tag v1.0 && git push origin v1.0
+ 7. Tell the user: what was made, where the final and proxy are, the QA summary, any
+    deviation from the brief (with reasons from DECISIONS.md), and remind them to
+    REVOKE the GitHub token now.
+ 8. Stop the auto-push loop:  kill "$(cat /tmp/autopush.pid)" 2>/dev/null
+
+
+==========================================================================================
+ 13. QUICK CHECKLIST  (scan this every few tool calls)
+==========================================================================================
+
+[ ] Pushed after the last finished micro-task / shot, or within 3–4 tool calls?
+[ ] Long job next? → push first, run it in the background, note it in QUICK STATE.
+[ ] Auto-push loop alive? Errors in autopush.log?
+[ ] QUICK STATE up to date with an exact NEXT ACTION and "Media on THIS computer"?
+[ ] Every media file reproducible from a script listed in "Regenerate media"?
+[ ] No raw media, no secrets in what I'm committing?
+[ ] Am I following the brief exactly (presets, colours, fonts, words, shot order)?
+[ ] Spelling on screen = script? Bangla shaping OK?
+[ ] Did I compare my last shot side by side with the reference?
+[ ] If I'm stopped now, can a stranger continue from PROGRESS.md quickly?
+
+
+==========================================================================================
+ 14. MESSAGE TO THE NEXT AGENT
+==========================================================================================
+
+"You can be stopped at any moment. Ask the user to re-upload the inputs if they are not
+attached. Clone, read QUICK STATE, rebuild the media you need with 'Regenerate media',
+continue at NEXT ACTION. One shot = one micro-task: build → render stills → compare
+with the reference → render → log → push. The brief decides the look; this file decides
+the process."
+
+==========================================================================================
+  END OF FILE
+==========================================================================================
