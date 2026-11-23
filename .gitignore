@@ -28,3 +28,4 @@ scripts/logs/autopush.heartbeat
 !assets/*.mp4
 !assets/sfx/*.wav
 scripts/logs/*.log
+remotion/public/media/
