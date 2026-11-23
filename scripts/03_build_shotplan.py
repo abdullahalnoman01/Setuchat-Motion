@@ -3,7 +3,8 @@
 #  style: sup | B | C | W | G | H (hero colours, brief 4) ; preset: A B C D E F G H (brief 3.4); '' = A-lite for sup
 #  opts: al l/c/r (anchor), L f/b (front/behind matte), r rot deg, d dir (-1 from left, 1 from right), w weight
 #  Words of the lines must equal the script words of the shot, in order (validated).
-import json, sys
+import json, sys, unicodedata
+NF=lambda x: unicodedata.normalize('NFC',x)
 FPS=30; N=2054
 W=json.load(open('data/words.json'))
 S=[
@@ -146,8 +147,8 @@ for sh in S:
         parts=txt.replace('|','').split() if pr!='F' else [txt.replace('|','')]
         ws=[]
         for p in parts:
-            if k>=len(script) or script[k]!=p: sys.exit(f"MISMATCH {sh['id']} expected {script[k] if k<len(script) else None!r} got {p!r}")
-            ws.append({'i':k,'text':p,'f':max(0,f(W[k]['start'])-1),'fe':f(W[k]['end'])}); k+=1
+            if k>=len(script) or NF(script[k])!=NF(p): sys.exit(f"MISMATCH {sh['id']} expected {script[k] if k<len(script) else None!r} got {p!r}")
+            ws.append({'i':k,'text':script[k],'f':max(0,f(W[k]['start'])-1),'fe':f(W[k]['end'])}); k+=1
         L={'text':txt,'style':st,'preset':pr,'x':x,'y':y,'size':sz,'words':ws}; L.update(o)
         if pr=='F': L['graphemes']=txt.split('|')
         sh_lines.append(L)

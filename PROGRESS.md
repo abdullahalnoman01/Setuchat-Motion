@@ -2,8 +2,8 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #6. Chain (deps→prep→matte) running via scripts/00c_chain.sh; building Remotion.
-- NEXT ACTION: when data/asr_words.json exists -> scripts/02b_align.py -> data/words.json; build Remotion.
+- Current: Session #7. words.json ✔ (energy align), shots.json ✔. Next: grade+matte bg, Remotion build.
+- NEXT ACTION: build Remotion project in remotion/ reading data/shots.json; render.
 - Media on THIS computer: inputs ✔, audio ✔, ASR/grade/matte running
 - Running background jobs: scripts/00_bg_prep.sh (ASR small + grade), scripts/06_matte.py (RVM chunks)
 - Last updated: 2026-11-23 16:05 Asia/Dhaka by Session #5
@@ -23,8 +23,8 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 ## Plan
 - [x] 0 Setup
 - [ ] 1 Probe + reference study (1.1 ✔ probe, 1.2 ✔ crop (none needed), 1.3 ref frames, 1.4 notes)
-- [ ] 2 Word timing (2.1 audio, 2.2 ASR, 2.3 align → data/words.json)
-- [ ] 3 Shot plan data/shots.json + validation
+- [x] 2 Word timing (session #7: whisper small useless for bn → scripts/02c_energy_align.py) (2.1 audio, 2.2 ASR, 2.3 align → data/words.json)
+- [x] 3 Shot plan data/shots.json + validation (python3 scripts/03_build_shotplan.py → OK words 158)
 - [ ] 4 Picture prep (4.1 30fps conform, 4.2 upscale, 4.3 grade)
 - [ ] 5 Person matte
 - [ ] 6 Remotion design system (6.1–6.7)
@@ -51,6 +51,7 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - (pip installs added as they happen)
 
 ## Regenerate media
+0. Timing/plan are committed (data/words.json, data/shots.json); rerun only if inputs change: python3 scripts/02c_energy_align.py && python3 scripts/03_build_shotplan.py
 1. Copy inputs to /data/media/input as main.mp4 reference.mp4 logo.png transcript.txt motion_brief.txt; `sha256sum` vs inputs.manifest.json.
 2. `bash scripts/00b_deps.sh` (torch CPU + fonts, ~2 min)
 3. `nohup bash scripts/00_bg_prep.sh > scripts/logs/prep.log &` (audio wavs, ASR -> data/asr_words.json if missing, grade -> /data/media/graded/graded.mp4; ~10-15 min)
@@ -65,3 +66,4 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - Sessions #3/#4: bg prep + ASR fix, stopped by usage policy.
 - Session #5 (2026-11-23 15:50): resumed; hashes match; fonts ✔ torch ✔; started ASR+grade+matte.
 - Session #6 (2026-11-23 15:58): resumed; hashes match; started scripts/00c_chain.sh (deps→ASR+grade→matte).
+- Session #7 (2026-11-23 16:10): resumed; hashes match; ASR garbage → energy align; shots.json built.
