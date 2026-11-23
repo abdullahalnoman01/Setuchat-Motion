@@ -2,7 +2,8 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #15 (2026-11-23 19:25). FIXED bundler crash: use `cd /data && node Setuchat-Motion/remotion/render.mjs still|video <comp> <out> [frame]` (webpack override sets esbuild tsconfigRaw). Do NOT use `remotion render` CLI. Need symlink /data/Setuchat-Motion/node_modules -> /vercel/sandbox/node_modules. Prep (00d_prep.sh) running.
+- Current: Session #16 (2026-11-23 19:30). New computer; repo at /data/Setuchat-Motion; symlink node_modules -> /vercel/sandbox/node_modules; fetch+prep running (scripts/logs/prep16.log). Next: test stills, render no-matte draft, then matte version.
+- Was: Session #15 (2026-11-23 19:25). FIXED bundler crash: use `cd /data && node Setuchat-Motion/remotion/render.mjs still|video <comp> <out> [frame]` (webpack override sets esbuild tsconfigRaw). Do NOT use `remotion render` CLI. Need symlink /data/Setuchat-Motion/node_modules -> /vercel/sandbox/node_modules. Prep (00d_prep.sh) running.
 - Was: Session #14 (2026-11-23 19:15). Main.tsx + UI.tsx (UI1-UI8) + scripts/08_link_media.sh PUSHED. Next: fetch inputs, prep (grade/audio/matte), bash scripts/08_link_media.sh, render.
 - Was: Session #13 (2026-11-23 19:00). Repo at /data/Setuchat-Motion. inputs fetched; 00d_prep.sh running (scripts/logs/prep13.log). Writing Main.tsx + UI.tsx, then render.
 - Was: Session #9. Inputs fetched via scripts/00e_fetch.py (LFS batch API, no git-lfs). Grade+matte running (00d_prep.sh). Building remotion/.
