@@ -2,7 +2,8 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #14 (2026-11-23 19:15). Main.tsx + UI.tsx (UI1-UI8) + scripts/08_link_media.sh PUSHED. Next: fetch inputs, prep (grade/audio/matte), bash scripts/08_link_media.sh, render.
+- Current: Session #15 (2026-11-23 19:25). FIXED bundler crash: use `cd /data && node Setuchat-Motion/remotion/render.mjs still|video <comp> <out> [frame]` (webpack override sets esbuild tsconfigRaw). Do NOT use `remotion render` CLI. Need symlink /data/Setuchat-Motion/node_modules -> /vercel/sandbox/node_modules. Prep (00d_prep.sh) running.
+- Was: Session #14 (2026-11-23 19:15). Main.tsx + UI.tsx (UI1-UI8) + scripts/08_link_media.sh PUSHED. Next: fetch inputs, prep (grade/audio/matte), bash scripts/08_link_media.sh, render.
 - Was: Session #13 (2026-11-23 19:00). Repo at /data/Setuchat-Motion. inputs fetched; 00d_prep.sh running (scripts/logs/prep13.log). Writing Main.tsx + UI.tsx, then render.
 - Was: Session #9. Inputs fetched via scripts/00e_fetch.py (LFS batch API, no git-lfs). Grade+matte running (00d_prep.sh). Building remotion/.
 - NEXT ACTION: build Remotion project in remotion/ reading data/shots.json; render.
@@ -63,6 +64,7 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - User supplied repo + token in chat (session #2). User asked to push fast.
 
 ## Session History
+- Session #15 (2026-11-23 19:25): remotion/render.mjs fixes 'typescript.sys undefined' loader crash; FontCard still OK.
 - Session #14 (2026-11-23 19:15): wrote+pushed remotion/src/Main.tsx, UI.tsx, public symlinks, 08_link_media.sh. Render: cd remotion && remotion render src/index.ts SetuChat out.mp4 --props='{"matte":true}'
 - Session #13 (2026-11-23 19:00): new computer; fetch OK; prep chain restarted; writing Main/UI.
 - Session #12 (2026-11-23 18:55): new computer; node_modules at /vercel/sandbox/node_modules; remotion CLI /usr/local/bin/remotion. Priority: push remotion/ code early.
