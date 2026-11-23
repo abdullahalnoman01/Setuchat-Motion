@@ -25,5 +25,6 @@ scripts/logs/autopush.heartbeat
 *.tif
 *.tiff
 !output/proxy/*.mp4
+!assets/*.mp4
 !assets/sfx/*.wav
 scripts/logs/*.log
