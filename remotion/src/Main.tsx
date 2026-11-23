@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Img, OffthreadVideo, interpolate, random, staticFile, useCurrentFrame, Easing} from 'remotion';
+import {AbsoluteFill, Audio, Img, OffthreadVideo, useCurrentFrame as useF, interpolate, random, staticFile, useCurrentFrame, Easing} from 'remotion';
 import data from '../../data/shots.json';
 import {C, GRAD, FONT, FRAMING, ORIGIN_Y, SAFE, W, H} from './theme';
 import {KLine, Line} from './Text';
@@ -25,10 +25,19 @@ const camFor = (s: Shot, f: number) => {
   return {sc: sc * drift, ox: cur.ox + whip, blur: whip ? whip / 18 : 0};
 };
 
+// Session #17: host GLIBC 2.34 -> Remotion compositor crashes. FRAMES mode reads ffmpeg-extracted image sequences
+// (scripts/09_frames.sh) via <Img>, no compositor needed.
+const FRAMES = true;
+const FrameImg: React.FC<{dir: string; ext: string}> = ({dir, ext}) => {
+  const f = useF();
+  return <Img src={staticFile(`${dir}/${String(f + 1).padStart(5, '0')}.${ext}`)} style={{width: W, height: H}} />;
+};
+
 const Plate: React.FC<{src: string; cam: {sc: number; ox: number; blur: number}; filt: string; transparent?: boolean}> = ({src, cam, filt, transparent}) =>
   <AbsoluteFill style={{transform: `translateX(${cam.ox}px) scale(${cam.sc})`, transformOrigin: `${W / 2}px ${ORIGIN_Y}px`,
     filter: `${filt} ${cam.blur ? `blur(${cam.blur}px)` : ''}`}}>
-    <OffthreadVideo src={staticFile(src)} muted transparent={transparent} style={{width: W, height: H}} />
+    {FRAMES ? <FrameImg dir={src.includes('person') ? 'media/pframes' : 'media/frames'} ext={src.includes('person') ? 'png' : 'jpg'} />
+      : <OffthreadVideo src={staticFile(src)} muted transparent={transparent} style={{width: W, height: H}} />}
   </AbsoluteFill>;
 
 const Glitch: React.FC<{f: number; seed: number; n?: number}> = ({f, seed, n = 14}) =>

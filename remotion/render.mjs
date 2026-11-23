@@ -12,10 +12,11 @@ const fix = (rules) => rules.map(r => {
   return r; });
 const serveUrl = await bundle({entryPoint: path.join(dir,'src/index.ts'), publicDir: path.join(dir,'public'),
   webpackOverride: (c) => { c.module.rules = fix(c.module.rules); return c; }});
+const binariesDirectory = process.env.RBIN || null; // session #17: /data/media/rbin = gnu ffmpeg + musl compositor (GLIBC 2.34 host)
 const inputProps = JSON.parse(process.env.PROPS || '{"matte":true}');
-const composition = await selectComposition({serveUrl, id: comp, inputProps});
-if (mode==='still') await renderStill({composition, serveUrl, output: out, frame: +frame, inputProps});
-else await renderMedia({composition, serveUrl, codec:'h264', outputLocation: out, inputProps, concurrency: 2,
+const composition = await selectComposition({serveUrl, id: comp, inputProps, binariesDirectory});
+if (mode==='still') await renderStill({composition, serveUrl, output: out, frame: +frame, inputProps, binariesDirectory});
+else await renderMedia({composition, serveUrl, codec:'h264', outputLocation: out, inputProps, concurrency: 2, binariesDirectory,
   crf: 16, pixelFormat:'yuv420p', audioCodec:'aac', audioBitrate:'320k',
   onProgress: ({progress}) => { if (Math.round(progress*100)%5===0) process.stdout.write(`\r${Math.round(progress*100)}%`); }});
 console.log('\nDONE', out); process.exit(0);

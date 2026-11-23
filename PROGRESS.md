@@ -2,7 +2,9 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #17 (2026-11-23 19:36). New computer. Plan: fetch -> grade+audio -> no-matte draft render first (matte later, optional).
+- Current: Session #17 (2026-11-23 19:45). STILLS WORK. Compositor (gnu needs GLIBC 2.35, musl SIGSEGVs) is AVOIDED: Main.tsx FRAMES=true reads remotion/public/media/frames/%05d.jpg via <Img>.
+  Recipe: python3 scripts/00e_fetch.py; bash scripts/00f_prep_nomatte.sh (audio+grade); bash scripts/09_frames.sh; mkdir -p remotion/public/media; ln /data/media/audio/voice.wav remotion/public/media/audio.wav (HARD links/real files: bundler ignores symlinks; fonts+logo copied into public/);
+  then cd /data && PROPS='{"matte":false}' node Setuchat-Motion/remotion/render.mjs video SetuChat /data/media/draft.mp4
 - Was: Session #16 (2026-11-23 19:30). New computer; repo at /data/Setuchat-Motion; symlink node_modules -> /vercel/sandbox/node_modules; fetch+prep running (scripts/logs/prep16.log). Next: test stills, render no-matte draft, then matte version.
 - Was: Session #15 (2026-11-23 19:25). FIXED bundler crash: use `cd /data && node Setuchat-Motion/remotion/render.mjs still|video <comp> <out> [frame]` (webpack override sets esbuild tsconfigRaw). Do NOT use `remotion render` CLI. Need symlink /data/Setuchat-Motion/node_modules -> /vercel/sandbox/node_modules. Prep (00d_prep.sh) running.
 - Was: Session #14 (2026-11-23 19:15). Main.tsx + UI.tsx (UI1-UI8) + scripts/08_link_media.sh PUSHED. Next: fetch inputs, prep (grade/audio/matte), bash scripts/08_link_media.sh, render.
