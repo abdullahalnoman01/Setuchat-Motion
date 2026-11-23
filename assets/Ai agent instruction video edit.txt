@@ -43,7 +43,7 @@ and push now.
   0. FILL-IN SECTION  (the USER edits ONLY this section)
 ==========================================================================================
 BRANCH       : main
-MODE         : NEW TASK          (NEW TASK  or  RESUME)
+MODE         : RESUME          (NEW TASK  or  RESUME)
 
 INPUT FILES (the user uploads ALL of these in EVERY session, NEW TASK and RESUME):
   1. MAIN VIDEO  : Setuchat Content 2 before motion (1).mp4
