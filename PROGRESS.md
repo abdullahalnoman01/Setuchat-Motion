@@ -2,7 +2,7 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #18 (2026-11-23 19:45) RESUMED on new computer; running fetch+prep+frames (scripts/logs/prep18.log), then full draft render.
+- Current: Session #18 (19:55). Compositor-free render WORKS: remotion/render_frames.mjs (renderFrames JPEG, no binariesDirectory) + scripts/10_render_full.sh (system ffmpeg stitch+loudnorm, 480p proxy). Recipe: 00e_fetch.py, 00f_prep_nomatte.sh, 09_frames.sh, ln -f voice.wav remotion/public/media/audio.wav, bash scripts/10_render_full.sh.
 - Was: Session #17 (2026-11-23 19:45). STILLS WORK. Compositor (gnu needs GLIBC 2.35, musl SIGSEGVs) is AVOIDED: Main.tsx FRAMES=true reads remotion/public/media/frames/%05d.jpg via <Img>.
   Recipe: python3 scripts/00e_fetch.py; bash scripts/00f_prep_nomatte.sh (audio+grade); bash scripts/09_frames.sh; mkdir -p remotion/public/media; ln /data/media/audio/voice.wav remotion/public/media/audio.wav (HARD links/real files: bundler ignores symlinks; fonts+logo copied into public/);
   then cd /data && PROPS='{"matte":false}' node Setuchat-Motion/remotion/render.mjs video SetuChat /data/media/draft.mp4
