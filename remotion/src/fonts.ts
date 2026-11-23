@@ -11,7 +11,7 @@ let started = false;
 export const loadFonts = () => {
   if (started || typeof document === 'undefined') return;
   started = true;
-  const h = delayRender('fonts');
+  const h = delayRender('fonts', {timeoutInMilliseconds: 180000});
   Promise.all(faces.map(([fam, file, weight]) => {
     const f = new FontFace(fam, `url(${staticFile(file)})`, {weight});
     return f.load().then((ff) => (document as any).fonts.add(ff));

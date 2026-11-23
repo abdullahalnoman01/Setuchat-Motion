@@ -17,7 +17,7 @@ const composition = await selectComposition({serveUrl, id: 'SetuChat', inputProp
 const frameRange = s !== undefined ? [+s, +(e ?? composition.durationInFrames-1)] : null;
 let last = 0;
 await renderFrames({composition, serveUrl, inputProps, outputDir: outDir, imageFormat: 'jpeg', jpegQuality: 92,
-  concurrency: +(process.env.CONC || 2), frameRange,
+  concurrency: +(process.env.CONC || 2), frameRange, timeoutInMilliseconds: 180000,
   imageSequencePattern: 'f[frame].[ext]',
   onFrameUpdate: (n) => { if (n - last >= 30) { last = n; console.log('frames', n); } }});
 console.log('DONE', outDir, composition.durationInFrames); process.exit(0);
