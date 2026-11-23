@@ -2,7 +2,7 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Session #5. Steps 2 (ASR), 4.3 (grade), 5 (matte) running in background; Step 6 Remotion starting.
+- Current: Session #6. Chain (deps→prep→matte) running via scripts/00c_chain.sh; building Remotion.
 - NEXT ACTION: when data/asr_words.json exists -> scripts/02b_align.py -> data/words.json; build Remotion.
 - Media on THIS computer: inputs ✔, audio ✔, ASR/grade/matte running
 - Running background jobs: scripts/00_bg_prep.sh (ASR small + grade), scripts/06_matte.py (RVM chunks)
@@ -64,3 +64,4 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 - Session #2 (2026-11-23): NEW TASK restart, Step 0 done.
 - Sessions #3/#4: bg prep + ASR fix, stopped by usage policy.
 - Session #5 (2026-11-23 15:50): resumed; hashes match; fonts ✔ torch ✔; started ASR+grade+matte.
+- Session #6 (2026-11-23 15:58): resumed; hashes match; started scripts/00c_chain.sh (deps→ASR+grade→matte).
