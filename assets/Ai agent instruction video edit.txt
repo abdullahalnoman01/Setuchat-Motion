@@ -42,8 +42,6 @@ and push now.
 ==========================================================================================
   0. FILL-IN SECTION  (the USER edits ONLY this section)
 ==========================================================================================
-REPO_URL     : https://github.com/abdullahalnoman01/Setuchat-Motion
-GITHUB_TOKEN : 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
 BRANCH       : main
 MODE         : NEW TASK          (NEW TASK  or  RESUME)
 
