@@ -2,12 +2,11 @@
 
 ## ⚡ QUICK STATE  (read this first; update at EVERY checkpoint)
 - Overall: IN PROGRESS
-- Current: Step 1/11 → micro-task 1.3 (reference frames + notes)
-- Last action: Step 0 setup done (structure, checkpoint scripts, manifest, plan).
-- NEXT ACTION: Step 1.3 grab reference frames → contact sheets; Step 2 ASR.
-- Media on THIS computer: inputs ✔ (others none yet)
-- Running background jobs: none
-- Last updated: 2026-11-23 15:30 Asia/Dhaka by Session #2
+- Current: Session #5. Steps 2 (ASR), 4.3 (grade), 5 (matte) running in background; Step 6 Remotion starting.
+- NEXT ACTION: when data/asr_words.json exists -> scripts/02b_align.py -> data/words.json; build Remotion.
+- Media on THIS computer: inputs ✔, audio ✔, ASR/grade/matte running
+- Running background jobs: scripts/00_bg_prep.sh (ASR small + grade), scripts/06_matte.py (RVM chunks)
+- Last updated: 2026-11-23 16:05 Asia/Dhaka by Session #5
 
 ## Task (copied exactly from the user)
 See AI_AGENT_INSTRUCTIONS.md Section 0 TASK. User chat (session #2): "read 'Ai agent
@@ -53,7 +52,9 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 
 ## Regenerate media
 1. Copy inputs to /data/media/input as main.mp4 reference.mp4 logo.png transcript.txt motion_brief.txt; `sha256sum` vs inputs.manifest.json.
-(further steps added as scripts are written)
+2. `bash scripts/00b_deps.sh` (torch CPU + fonts, ~2 min)
+3. `nohup bash scripts/00_bg_prep.sh > scripts/logs/prep.log &` (audio wavs, ASR -> data/asr_words.json if missing, grade -> /data/media/graded/graded.mp4; ~10-15 min)
+4. `nohup python3 scripts/06_matte.py > scripts/logs/matte.log &` (RVM matte 540x960 -> /data/media/matte/matte.mp4, resumable chunks, ~20-30 min)
 
 ## External actions
 - User supplied repo + token in chat (session #2). User asked to push fast.
@@ -61,3 +62,5 @@ See AI_AGENT_INSTRUCTIONS.md Section 0 (= brief Section 12). Evidence links are 
 ## Session History
 - Session #1: setup attempted, stopped by usage policy before push.
 - Session #2 (2026-11-23): NEW TASK restart, Step 0 done.
+- Sessions #3/#4: bg prep + ASR fix, stopped by usage policy.
+- Session #5 (2026-11-23 15:50): resumed; hashes match; fonts ✔ torch ✔; started ASR+grade+matte.
